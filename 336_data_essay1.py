@@ -12,14 +12,18 @@ import csv
 import pandas as pd
 import matplotlib.pyplot as plt
 
+plt.style.use('ggplot')
 
-def main():    # run basic visualizer functions
+
+# run basic visualizer functions
+def main():
     vis_gdp_elec(wb_gdp(), wb_elec())
     vis_elec_dem(wb_elec(), dem_level())
     return
 
 
-def wb_gdp():    # collect and parse data for World Bank GDP in 2014
+# collect and parse data for World Bank GDP in 2014
+def wb_gdp():
     with open('gdppercap.csv', 'r') as f:
         reader = csv.DictReader(f)
         gdp = []
@@ -35,7 +39,8 @@ def wb_gdp():    # collect and parse data for World Bank GDP in 2014
     return data
 
 
-def wb_elec():    # collect and parse data for World Bank Electricity use 2014
+# collect and parse data for World Bank Electricity use 2014
+def wb_elec():
     with open('elecpercap.csv', 'r') as f:
         reader = csv.DictReader(f)
         elec = []
@@ -47,7 +52,8 @@ def wb_elec():    # collect and parse data for World Bank Electricity use 2014
     return data
 
 
-def dem_level():    # collect and parse data for Polity2 Democracy Level 2014
+# collect and parse data for Polity2 Democracy Level 2014
+def dem_level():
     with open('polityIV.csv', 'r') as f:
         reader = csv.DictReader(f)
         dem = []
@@ -60,7 +66,8 @@ def dem_level():    # collect and parse data for Polity2 Democracy Level 2014
     return data
 
 
-def vis_gdp_elec(gdp, elec):    # visualize data sets for gdp/elec use, take dictionaries for df creation
+# visualize data sets for gdp/elec use, take dictionaries for df creation
+def vis_gdp_elec(gdp, elec):
     gdp1 = {}
     elec1 = {}
     for key in gdp.keys():
@@ -73,18 +80,27 @@ def vis_gdp_elec(gdp, elec):    # visualize data sets for gdp/elec use, take dic
             df.pop(country)
         elif df[country][0] == '' or df[country][1] == '':
             df.pop(country)
+    df.dropna()
     df = df.transpose()    # transpose DataFrame for graphing
     df = df.rename(index=str, columns={0: 'GDP($) per Capita', 1: 'kWh per Capita'})
     df = df.iloc[1:]
     df = df.astype(float)
-    # print(df)
-    df.plot(kind='scatter', x='kWh per Capita', y='GDP($) per Capita', loglog=True,
-            title='Electricity use vs. Nominal GDP (per Capita) 2014')
+    ax = df.plot(kind='scatter', x='kWh per Capita', y='GDP($) per Capita', loglog=True,
+                 title='Electricity Consumption vs. GDP 2014')
+    ax.set_xlabel("Electricity Consumption (mWh per Capita)")
+    ax.set_ylabel("GDP ($ equivalent per Capita)")
+    ax.scatter(df['kWh per Capita']['World'], df['GDP($) per Capita']['World'],
+               marker='o', color='red')
+    ax.scatter(df['kWh per Capita']['United States'], df['GDP($) per Capita']['United States'],
+               marker='o', color='orange')
     plt.interactive(False)
     plt.show()
+    fig = ax.get_figure()
+    fig.savefig('elec_gdp.png')
 
 
-def vis_elec_dem(elec, dem):    # visualize data sets for elec use/dem level, take dictionaries for df creation
+# visualize data sets for elec use/dem level, take dictionaries for df creation
+def vis_elec_dem(elec, dem):
     elec1 = {}
     dem1 = {}
     for key in elec.keys():
@@ -100,11 +116,16 @@ def vis_elec_dem(elec, dem):    # visualize data sets for elec use/dem level, ta
     df = df.transpose()    # transpose DataFrame for graphing
     df = df.rename(index=str, columns={0: 'kWh per Capita', 1: 'Democracy Level'})
     df = df.astype(float)
-    # print(df)
-    df.plot(kind='scatter', x='kWh per Capita', y='Democracy Level',
-            title='Electricity use per Capita vs. Democracy Level 2014')
+    ax = df.plot(kind='scatter', x='kWh per Capita', y='Democracy Level',
+                 title='Electricity Consumption vs. Democracy Level 2014', logx=True)
+    ax.set_xlabel("Electricity Consumption (mWh per Capita)")
+    ax.set_ylabel("Democracy Level (Polity2 Score)")
+    ax.scatter(df['kWh per Capita']['United States'], df['Democracy Level']['United States'],
+               marker='o', color='orange')
     plt.interactive(False)
     plt.show()
+    fig = ax.get_figure()
+    fig.savefig('elec_dem.png')
 
 
 if __name__ == '__main__':
