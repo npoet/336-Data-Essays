@@ -85,13 +85,13 @@ def vis_gdp_elec(gdp, elec):
     df = df.rename(index=str, columns={0: 'GDP($) per Capita', 1: 'kWh per Capita'})
     df = df.iloc[1:]
     df = df.astype(float)
-    ax = df.plot(kind='scatter', x='kWh per Capita', y='GDP($) per Capita', loglog=True,
+    ax = df.plot(kind='scatter', x='GDP($) per Capita', y='kWh per Capita', loglog=True,
                  title='Electricity Consumption vs. GDP 2014')
-    ax.set_xlabel("Electricity Consumption (mWh per Capita)")
-    ax.set_ylabel("GDP ($ equivalent per Capita)")
-    ax.scatter(df['kWh per Capita']['World'], df['GDP($) per Capita']['World'],
+    ax.set_ylabel("Electricity Consumption (mWh per Capita)")
+    ax.set_xlabel("GDP ($ equivalent per Capita)")
+    ax.scatter(df['GDP($) per Capita']['World'], df['kWh per Capita']['World'],
                marker='o', color='red')
-    ax.scatter(df['kWh per Capita']['United States'], df['GDP($) per Capita']['United States'],
+    ax.scatter(df['GDP($) per Capita']['United States'], df['kWh per Capita']['United States'],
                marker='o', color='orange')
     plt.interactive(False)
     plt.show()
@@ -116,11 +116,11 @@ def vis_elec_dem(elec, dem):
     df = df.transpose()    # transpose DataFrame for graphing
     df = df.rename(index=str, columns={0: 'kWh per Capita', 1: 'Democracy Level'})
     df = df.astype(float)
-    ax = df.plot(kind='scatter', x='kWh per Capita', y='Democracy Level',
-                 title='Electricity Consumption vs. Democracy Level 2014', logx=True)
-    ax.set_xlabel("Electricity Consumption (mWh per Capita)")
-    ax.set_ylabel("Democracy Level (Polity2 Score)")
-    ax.scatter(df['kWh per Capita']['United States'], df['Democracy Level']['United States'],
+    ax = df.plot(kind='scatter', x='Democracy Level', y='kWh per Capita',
+                 title='Electricity Consumption vs. Democracy Level 2014', logy=True)
+    ax.set_ylabel("Electricity Consumption (mWh per Capita)")
+    ax.set_xlabel("Democracy Level (Polity2 Score)")
+    ax.scatter(df['Democracy Level']['United States'], df['kWh per Capita']['United States'],
                marker='o', color='orange')
     plt.interactive(False)
     plt.show()
