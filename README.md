@@ -17,7 +17,7 @@ trendlines, etc.
 Essay #1: ELECTRICITY USE, WEALTH, AND DEMOCRACY (9/23/2017)
 
 ![plot1](/images/elec_gdp.png)
-![plot2](/`images/elec_dem.png)
+![plot2](/images/elec_dem.png)
 
 
 
