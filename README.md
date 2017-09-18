@@ -2,24 +2,6 @@
 Source files used to collect and analyze data for 
 Polsci 336 (Energy Politics, Prof. Brian Min) at The University of Michigan. 
 
-_On Collecting and Visualizing Data:_ To begin this assignment, I used the World Bank Data API to collect information on 
-GDP per Capita Figures, as well a Electricity use per Capita. Data for each is strong up to 2014, after which there are 
-missing entries for a variety of countries. In order to assemble the most complete data sets, I chose to use the year 
-2014 as my focus. The data pulled from the World Bank was cleaned and parsed first into python dictionaries, then into 
-DataFrame objects using Pandas. Data on Democratic Level was sourced from the Center for Systemic Peace INSCR Data Page, 
-using the "Polity2" score for each nation. Using the Electricity Use data as a control set, the Dem Level and GDP sets 
-were trimmed to match. The data is visualized using Matplotlib, and turned into a set of scatter plots. Each plot has 
-data highlighted for the United States and World averages, as well as relevant statistical analysis including 
-trendlines, etc.    
+Essay Links:
 
-### Essay Text:
-
-Essay #1: ELECTRICITY USE, WEALTH, AND DEMOCRACY (9/23/2017)
-
-![plot1](/images/elec_gdp.png)
-![plot2](/images/elec_dem.png)
-
-
-
-_**-- in progress -- 
-Completion expected on or before September 23rd, 2017**_
+[Essay 1](https://github.com/npoet/336-Data-Essays/wiki/Essay-1:-Electricity-Use,-Wealth-and-Democracy)
