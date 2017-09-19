@@ -96,7 +96,7 @@ def vis_gdp_elec(gdp, elec):
     # plot main df
     ax = df.plot(kind='scatter', x='GDP($) per Capita', y='kWh per Capita', loglog=True,
                  title='Electricity Consumption vs. GDP 2014')
-    ax.set_ylabel("Electricity Consumption (mWh per Capita)")
+    ax.set_ylabel("Electricity Consumption (kWh per Capita)")
     ax.set_xlabel("GDP ($ equivalent per Capita)")
     # plot highlighted data points
     ax.scatter(df['GDP($) per Capita']['World'], df['kWh per Capita']['World'],
@@ -109,6 +109,7 @@ def vis_gdp_elec(gdp, elec):
     print(p_val)
     # show result
     plt.show()
+    save_png(ax, "elec_gdp.png")
     return ax
 
 
@@ -120,7 +121,7 @@ def vis_elec_dem(elec, dem):
     # plot main df
     ax = df.plot(kind='scatter', x='Democracy Level', y='kWh per Capita',
                  title='Electricity Consumption vs. Democracy Level 2014', logy=True)
-    ax.set_ylabel("Electricity Consumption (mWh per Capita)")
+    ax.set_ylabel("Electricity Consumption (kWh per Capita)")
     ax.set_xlabel("Democracy Level (Polity2 Score)")
     # plot highlighted data points
     ax.scatter(df['Democracy Level']['United States'], df['kWh per Capita']['United States'],
@@ -128,6 +129,7 @@ def vis_elec_dem(elec, dem):
     plt.interactive(False)
     # show result
     plt.show()
+    save_png(ax, "elec_dem.png")
     return ax
 
 
