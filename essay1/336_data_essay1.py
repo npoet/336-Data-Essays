@@ -106,7 +106,7 @@ def vis_gdp_elec(gdp, elec):
     plt.interactive(False)
     # statistical analysis
     p_val = stats.pearsonr(df['GDP($) per Capita'], df['kWh per Capita'])
-    print(p_val)
+    print("Elec Use vs. GDP p_corr", p_val)
     # show result
     plt.show()
     # save_png(ax, "elec_gdp.png")
@@ -130,9 +130,18 @@ def vis_elec_dem(elec, dem):
                marker='o', color='green')
     plt.interactive(False)
     # show result
+    p_val = stats.pearsonr(df['Democracy Level'], df['kWh per Capita'])
+    print("Elec Use vs. Dem Level p_corr", p_val)
     plt.show()
-    save_png(ax, "elec_dem.png")
+    # save_png(ax, "elec_dem.png")
     return ax
+
+
+# generate statistical analysis for DataFrame object
+def statistics(df):
+    # calculate pearson correlation coefficient
+    p_corr = stats.pearsonr(df.X, df.Y)
+    return p_corr
 
 
 # saves plot to name input
