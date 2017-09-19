@@ -131,7 +131,7 @@ def vis_elec_dem(elec, dem):
     plt.interactive(False)
     # show result
     plt.show()
-    # save_png(ax, "elec_dem.png")
+    save_png(ax, "elec_dem.png")
     return ax
 
 
