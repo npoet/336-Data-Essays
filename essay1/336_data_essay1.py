@@ -45,7 +45,7 @@ def gen_df(d1, d2):
 
 # collect and parse data for World Bank GDP in 2014
 def wb_gdp():
-    with open('gdppercap.csv', 'r') as f:
+    with open('essay1/data/gdppercap.csv', 'r') as f:
         reader = csv.DictReader(f)
         gdp = []
         for line in reader:
@@ -62,7 +62,7 @@ def wb_gdp():
 
 # collect and parse data for World Bank Electricity use 2014
 def wb_elec():
-    with open('elecpercap.csv', 'r') as f:
+    with open('essay1/data/elecpercap.csv', 'r') as f:
         reader = csv.DictReader(f)
         elec = []
         for line in reader:
@@ -75,7 +75,7 @@ def wb_elec():
 
 # collect and parse data for Polity2 Democracy Level 2014
 def dem_level():
-    with open('polityIV.csv', 'r') as f:
+    with open('essay1/data/polityIV.csv', 'r') as f:
         reader = csv.DictReader(f)
         dem = []
         for line in reader:
