@@ -109,7 +109,7 @@ def vis_gdp_elec(gdp, elec):
     print(p_val)
     # show result
     plt.show()
-    save_png(ax, "elec_gdp.png")
+    # save_png(ax, "elec_gdp.png")
     return ax
 
 
@@ -129,7 +129,7 @@ def vis_elec_dem(elec, dem):
     plt.interactive(False)
     # show result
     plt.show()
-    save_png(ax, "elec_dem.png")
+    # save_png(ax, "elec_dem.png")
     return ax
 
 
