@@ -126,6 +126,8 @@ def vis_elec_dem(elec, dem):
     # plot highlighted data points
     ax.scatter(df['Democracy Level']['United States'], df['kWh per Capita']['United States'],
                marker='o', color='orange')
+    ax.scatter(df['Democracy Level']['Bahrain'], df['kWh per Capita']['Bahrain'],
+               marker='o', color='green')
     plt.interactive(False)
     # show result
     plt.show()
