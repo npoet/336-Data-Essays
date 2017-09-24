@@ -45,7 +45,7 @@ def gen_df(d1, d2):
 
 # collect and parse data for World Bank GDP in 2014
 def wb_gdp():
-    with open('essay1/data/gdppercap.csv', 'r') as f:
+    with open('data/gdppercap.csv', 'r') as f:
         reader = csv.DictReader(f)
         gdp = []
         for line in reader:
@@ -62,7 +62,7 @@ def wb_gdp():
 
 # collect and parse data for World Bank Electricity use 2014
 def wb_elec():
-    with open('essay1/data/elecpercap.csv', 'r') as f:
+    with open('data/elecpercap.csv', 'r') as f:
         reader = csv.DictReader(f)
         elec = []
         for line in reader:
@@ -75,7 +75,7 @@ def wb_elec():
 
 # collect and parse data for Polity2 Democracy Level 2014
 def dem_level():
-    with open('essay1/data/polityIV.csv', 'r') as f:
+    with open('data/polityIV.csv', 'r') as f:
         reader = csv.DictReader(f)
         dem = []
         for line in reader:
@@ -105,10 +105,12 @@ def vis_gdp_elec(gdp, elec):
                marker='o', color='orange')
     plt.interactive(False)
     # statistical analysis
-    p_val = stats.pearsonr(df['GDP($) per Capita'], df['kWh per Capita'])
-    print("Elec Use vs. GDP p_corr", p_val)
+    # p_val = stats.pearsonr(df['GDP($) per Capita'], df['kWh per Capita'])
+    st = statistics(df)
+    print("Elec Use vs. GDP p_corr\n", st[0], '\n')
+    print("Elec Use vs. GDP linreg\n", st[1], '\n')
     # show result
-    plt.show()
+    # plt.show()
     # save_png(ax, "elec_gdp.png")
     return ax
 
@@ -130,9 +132,11 @@ def vis_elec_dem(elec, dem):
                marker='o', color='green')
     plt.interactive(False)
     # show result
-    p_val = stats.pearsonr(df['Democracy Level'], df['kWh per Capita'])
-    print("Elec Use vs. Dem Level p_corr", p_val)
-    plt.show()
+    # p_val = stats.pearsonr(df['Democracy Level'], df['kWh per Capita'])
+    st = statistics(df)
+    print("Elec Use vs. Dem Level p_corr\n", st[0], '\n')
+    print("Elec Use vs. Dem Level linreg\n", st[1], '\n')
+    # plt.show()
     # save_png(ax, "elec_dem.png")
     return ax
 
@@ -140,8 +144,11 @@ def vis_elec_dem(elec, dem):
 # generate statistical analysis for DataFrame object
 def statistics(df):
     # calculate pearson correlation coefficient
-    p_corr = stats.pearsonr(df.X, df.Y)
-    return p_corr
+    x = df[df.columns[0]]
+    y = df[df.columns[1]]
+    p_corr = stats.pearsonr(x, y)
+    linreg = stats.linregress(x, y)
+    return p_corr, linreg
 
 
 # saves plot to name input
