@@ -1,32 +1,55 @@
-# import pandas
-# import csv
-# import requests
-# import plotly.plotly as py
-# import plotly.figure_factory as ff
-# import plotly.graph_objs as go
-import plotly
+# 336_data_essay_2.py
+# analysis of TPES in Bolivia in 2015 and from 1990-Present.
+#   Data Sources:
+#       - t_XXXX data from International Energy Agency
+#  written by Nicholas Poet, 2017
+
 import pandas as pd
 import matplotlib.pyplot as plt
-plotly.tools.set_credentials_file(username='npoet', api_key='lLoHqL8Irc9jtech4iu3')
+plt.style.use('ggplot')
 
 
 def main():
-    vis_line(parse_data())
+    df = parse_data()
+    vis_line(df)
+    vis_pie(df)
     return
 
 
 def vis_line(df):
     df = df.transpose()
-    df.astype(float)
     df = df.rename(index=str, columns={0: 'Coal',  1: 'Crude Oil',  2: 'Oil Products', 3: 'Natural Gas', 4: 'Nuclear',
                                        5: 'Hydro', 6: 'Geothermal', 7: 'Biofuels',     8: 'Electricity', 9: 'Heat'})
-    print(df)
-    ax = df.plot(kind='line', title='Bolivian TPOE per Year, 1990-Present')
+    # print(df)
+    ax = df.plot(kind='line', linewidth=3, cmap='Paired', title='Bolivian TPES per Year, 1990-Present')
     ax.set_ylabel('TPES (ktoe)')
     ax.set_xlabel('Year')
     plt.interactive(False)
     plt.show()
     return ax
+
+
+def vis_pie(df):
+    df = df.transpose()
+    y2015 = []
+    for i in df:
+        y2015.append(df[i]['2015'])
+    print(y2015)
+    ndf = pd.DataFrame(y2015, index=['Coal', 'Crude Oil', 'Oil Products', 'Natural Gas', 'Nuclear',
+                                     'Hydro', '', 'Biofuels', 'Electricity', 'Heat'])
+    # print(ndf)
+    explode = (0, 0.05, 0, 0.05, 0, 0, 0, 0, 0, 0)
+    ax = ndf.plot(kind='pie', explode=explode, cmap='Paired', autopct=autopct, subplots=True)
+    plt.interactive(False)
+    plt.axis('equal')
+    plt.ylabel('')
+    plt.xlabel('Bolivian TPES by ktoe Equivalent 2015')
+    plt.show()
+    return ax
+
+
+def autopct(pct):
+    return ('%.2f%%' % pct) if pct > 5 else ''
 
 
 def parse_data():
