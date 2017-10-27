@@ -12,6 +12,7 @@ import csv
 import pandas as pd
 import matplotlib.pyplot as plt
 import scipy.stats as stats
+import math
 
 # set graph style to ggplot
 plt.style.use('ggplot')
@@ -140,7 +141,7 @@ def vis_elec_dem(elec, dem):
     print("Elec Use vs. Dem Level p_corr\n", st[0], '\n')
     print("Elec Use vs. Dem Level linreg\n", st[1], '\n')
     # show result
-    plt.show()
+    #plt.show()
     # uncomment below to output new .png image
     # save_png(ax, "elec_dem.png")
     return ax
@@ -152,8 +153,8 @@ def statistics(df):
     x = df[df.columns[0]]
     y = df[df.columns[1]]
     p_corr = stats.pearsonr(x, y)
-    linreg = stats.linregress(x, y)
-    return p_corr, linreg
+    slope, intercept, r_value, p_value, std_err = stats.linregress(x, y)
+    return p_corr, slope, intercept, r_value, p_value, std_err
 
 
 # saves plot to name input
