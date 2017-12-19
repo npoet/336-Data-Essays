@@ -12,10 +12,11 @@ plt.style.use('ggplot')
 
 
 def main():
-    a = energy_vs_dem_level_df()
-    vis_fig1(a)
-    c = energy_access_vs_dem_level()
-    vis_fig2(c)
+    # a = energy_vs_dem_level_df()
+    # vis_fig1(a)
+    # c = energy_access_vs_dem_level()
+    # vis_fig2(c)
+    print(import_dem_lvl())
     return
 
 
