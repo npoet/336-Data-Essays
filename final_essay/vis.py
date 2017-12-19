@@ -6,12 +6,11 @@ import csv
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from datetime import datetime
 plt.style.use('ggplot')
 
 
 def main():
-    import_fdi_sa()
+    import_fdi_me()
     # print(import_oil_price())
     return
 
@@ -45,12 +44,12 @@ def import_fdi_sa():
     #                    color='y')
     # df['Venezuela'].plot(kind='bar', x='Year', y='FDI Inflows ',
     #                      title='FDI Inflows: Venezuela (/10Bn USD)\n1975-2016', color='r')
-    # d = import_oil_price()
-    # print(d)
-    # fig, ax1 = plt.subplots()
-    # ax2 = ax1.twinx()
-    # d.plot(kind='line', color='b', ax=ax2)
-    # df.plot(kind='bar', ax=ax1)
+    d = import_oil_price()
+    print(d)
+    fig, ax1 = plt.subplots()
+    ax2 = ax1.twinx()
+    d.plot(kind='line', color='b', title='South American FDI\nvs. Crude Prices 1989-2016', ax=ax2)
+    df.plot(kind='bar', ax=ax1)
 
     plt.show()
     return df
@@ -84,23 +83,27 @@ def import_fdi_me():
     # df['Iran'].plot(kind='bar', x='Year', y='FDI Inflows ', title='FDI Inflows: Iran (/10Bn USD)\n1975-2016',
     #                color='black')
     d = import_oil_price()
-    ax = d.plot(kind='line', color='o')
-    df.plot(kind='bar', ax=ax)
+    print(d)
+    fig, ax1 = plt.subplots()
+    ax2 = ax1.twinx()
+    d.plot(kind='line', color='b', title='Middle East FDI\nvs. Crude Prices 1989-2016', ax=ax2)
+    df.plot(kind='bar', ax=ax1)
+
     plt.show()
     return df
 
 
 def import_oil_price():
-    with open('data/brent_prices.csv') as f:
+    with open('data/oil.csv') as f:
         reader = csv.DictReader(f)
         r = []
         for line in reader:
             r.append(line)
         f.close()
     data = {}
+    print(r)
     for i in r:
-        data.update({datetime.strptime(i['Date'], '%b %d, %Y').isoformat():
-                     i['Europe Brent Spot Price FOB (Dollars per Barrel)']})
+        data.update({i['Date']: i['WTI Spot Price']})
     df = pd.DataFrame(data, index=['Brent Crude Price (USD)'])
     df = df.transpose()
     df['Brent Crude Price (USD)'].replace('', np.nan, inplace=True)
